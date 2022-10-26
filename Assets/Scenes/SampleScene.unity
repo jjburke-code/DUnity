@@ -145,11 +145,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9001945172860683787, guid: 77de6562fc857d546b4ecf34bf644f2a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.045
+      value: 1.342
       objectReference: {fileID: 0}
     - target: {fileID: 9001945172860683787, guid: 77de6562fc857d546b4ecf34bf644f2a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.609
+      value: 0.039
       objectReference: {fileID: 0}
     - target: {fileID: 9001945172860683787, guid: 77de6562fc857d546b4ecf34bf644f2a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -343,7 +343,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1
+  orthographic size: 1.2
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -442,9 +442,9 @@ GameObject:
   - component: {fileID: 720242555}
   - component: {fileID: 720242554}
   - component: {fileID: 720242553}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ColliderLayer
-  m_TagString: Untagged
+  m_TagString: CollisionsCanFlyOver
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2111,7 +2111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9001945172860683787, guid: 77de6562fc857d546b4ecf34bf644f2a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.125
+      value: -0.55
       objectReference: {fileID: 0}
     - target: {fileID: 9001945172860683787, guid: 77de6562fc857d546b4ecf34bf644f2a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2215,6 +2215,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4899897177315971979, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4899897177315971979, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4899897177315972016, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
       propertyPath: m_RootOrder
       value: 3

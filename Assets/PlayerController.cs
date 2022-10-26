@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private float collisionOffset = float.Epsilon;
     public ContactFilter2D movementFilter;
     bool moving = false;
+    bool canFly = true; // will eventually be able to set via skill
+    bool flying = false;
 
     Vector2 movementInput;
     Rigidbody2D rb;
@@ -26,12 +28,12 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
     }
 
     private void FixedUpdate()
     {
-
+        animator.SetBool("IsFlying", flying);
+        print(moving);
         if (canMove)
         {
             if (movementInput != Vector2.zero)
@@ -50,38 +52,27 @@ public class PlayerController : MonoBehaviour
 
                 if (movementInput.x > 0)
                 {
-                    animator.SetBool("IsMovingLeft", false);
-                    animator.SetBool("IsMovingDown", false);
-                    animator.SetBool("IsMovingUp", false);
+                    DisableRestMoveThisWay("right");
                 }
                 else if (movementInput.x < 0)
                 {
-                    animator.SetBool("IsMovingRight", false);
-                    animator.SetBool("IsMovingDown", false);
-                    animator.SetBool("IsMovingUp", false);
+                    DisableRestMoveThisWay("left");
                 }
                 else if (movementInput.y > 0)
                 {
-                    animator.SetBool("IsMovingDown", false);
-                    animator.SetBool("IsMovingLeft", false);
-                    animator.SetBool("IsMovingRight", false);
+                    DisableRestMoveThisWay("up");
                 }
                 else if (movementInput.y < 0)
                 {
-                    animator.SetBool("IsMovingUp", false);
-                    animator.SetBool("IsMovingLeft", false);
-                    animator.SetBool("IsMovingRight", false);
+                    DisableRestMoveThisWay("down");
                 }
             }
             else
             {
-                animator.SetBool("IsMovingLeft", false);
-                animator.SetBool("IsMovingRight", false);
-                animator.SetBool("IsMovingDown", false);
-                animator.SetBool("IsMovingUp", false);
+                DisableRestMoveThisWay("all");
             }
-            
         }
+
     }
 
     private bool TryMove(Vector2 direction)
@@ -97,31 +88,60 @@ public class PlayerController : MonoBehaviour
             if (count == 0)
             {
                 rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
-                if (moving)
-                {
                     if (direction.x > 0 || direction.x > 0 && (direction.y != 0))
                     {
-                        animator.SetBool("IsMovingRight", true);
+                        if (flying)
+                        {
+                            animator.SetBool("IsFlyingRight",true);
+                        }
+                        else
+                        {
+                            animator.SetBool("IsMovingRight", true);
+                        }
+                        
                         lastDirection = 0;
                     }
                     if (direction.x < 0 || direction.x < 0 && (direction.y != 0))
                     {
-                        animator.SetBool("IsMovingLeft", true);
+                        
+                        if (flying)
+                        {
+                            animator.SetBool("IsFlyingLeft",true);
+                        }
+                        else
+                        {
+                            animator.SetBool("IsMovingLeft", true);
+                        }
+                        
                         lastDirection = 1;
 
                     }
                     if (direction.y > 0 && direction.x == 0)
                     {
-                        animator.SetBool("IsMovingUp", true);
+                        if (flying)
+                        {
+                            animator.SetBool("IsFlyingUp",true);
+                        }
+                        else
+                        {
+                            animator.SetBool("IsMovingUp", true);
+                        }
+                        
                         lastDirection = 2;
                     }
                     if (direction.y < 0 && direction.x == 0)
                     {
-                        animator.SetBool("IsMovingDown", true);
+                        if (flying)
+                        {
+                            animator.SetBool("IsFlyingDown",true);
+                        }
+                        else
+                        {
+                            animator.SetBool("IsMovingDown", true);
+                        }
+                        
                         lastDirection = 3;
                     }
-                }
-                
                 return true;
             }
             else
@@ -133,13 +153,11 @@ public class PlayerController : MonoBehaviour
         {
             return false;
         }
-
     }
 
     void OnMove(InputValue movementValue)
     {
         movementInput = movementValue.Get<Vector2>();
-        moving = true;
     }
 
     public void LockMovement()
@@ -152,11 +170,86 @@ public class PlayerController : MonoBehaviour
         canMove = true;
     }
 
-    //end of movement code
+    // probably should make this rebindable, but thats a problem for later
+    void OnPressR()
+    {
+        print("Pressed R");
+        if (canFly && !flying)
+        {
+            print("Can FLy");
+            LayerMask mask = LayerMask.GetMask("Default");
 
-    //start of attack code
+            movementFilter.SetLayerMask(mask);
+            flying = true;
+            animator.SetTrigger("Flying");
+            transform.position = transform.position + new Vector3(0f, .1f);
+        }
+        else if(flying)
+        {
+            movementFilter.NoFilter();
+            flying = false;
+            animator.SetTrigger("Walking");
+            transform.position = transform.position + new Vector3(0f, -.1f);
+        }
+    }
 
-    void OnPunch()
+    private void DisableRestMoveThisWay(string direction)
+    {
+        switch (direction){
+            case "right":
+                animator.SetBool("IsMovingLeft", false);
+                animator.SetBool("IsMovingDown", false);
+                animator.SetBool("IsMovingUp", false);
+
+                animator.SetBool("IsFlyingLeft", false);
+                animator.SetBool("IsFlyingUp", false);
+                animator.SetBool("IsFlyingDown", false);
+                break;
+            case "left":
+                animator.SetBool("IsMovingRight", false);
+                animator.SetBool("IsMovingDown", false);
+                animator.SetBool("IsMovingUp", false);
+
+                animator.SetBool("IsFlyingUp", false);
+                animator.SetBool("IsFlyingDown", false);
+                animator.SetBool("IsFlyingRight", false);
+                break;
+            case "up":
+                animator.SetBool("IsMovingDown", false);
+                animator.SetBool("IsMovingLeft", false);
+                animator.SetBool("IsMovingRight", false);
+
+                animator.SetBool("IsFlyingDown", false);
+                animator.SetBool("IsFlyingRight", false);
+                animator.SetBool("IsFlyingLeft", false);
+                break;
+            case "down":
+                animator.SetBool("IsMovingUp", false);
+                animator.SetBool("IsMovingLeft", false);
+                animator.SetBool("IsMovingRight", false);
+
+                animator.SetBool("IsFlyingRight", false);
+                animator.SetBool("IsFlyingLeft", false);
+                animator.SetBool("IsFlyingUp", false);
+                break;
+            case "all":
+                animator.SetBool("IsMovingLeft", false);
+                animator.SetBool("IsMovingRight", false);
+                animator.SetBool("IsMovingDown", false);
+                animator.SetBool("IsMovingUp", false);
+
+                animator.SetBool("IsFlyingRight", false);
+                animator.SetBool("IsFlyingLeft", false);
+                animator.SetBool("IsFlyingUp", false);
+                animator.SetBool("IsFlyingDown", false);
+                break;
+        }
+    }
+        //end of movement code
+
+        //start of attack code
+
+        void OnPunch()
     {
         switch (lastDirection)
         {
@@ -177,18 +270,6 @@ public class PlayerController : MonoBehaviour
                 basicAttack.AttackDown();
                 break;
         }
-
-
-        if (lastDirection == 0)
-        {
-            animator.SetTrigger("AttackRight");
-            basicAttack.AttackRight();
-        }
-        else if(lastDirection == 1)
-        {
-            animator.SetTrigger("AttackLeft");
-            basicAttack.AttackLeft();
-        }
         
     }
 
@@ -196,4 +277,6 @@ public class PlayerController : MonoBehaviour
     {
         basicAttack.AttackStop();
     }
+
+    // end of attack code
 }
