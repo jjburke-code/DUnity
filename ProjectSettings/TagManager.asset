@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - CollisionsCanFlyOver
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Collisions
   - Water
   - UI
   - 
