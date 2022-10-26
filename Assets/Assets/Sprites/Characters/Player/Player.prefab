@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d586b4013b848894fa2d67ed6b5be15e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  moveSpeed: 2
   movementFilter:
     useTriggers: 0
     useLayerMask: 0
@@ -170,7 +170,6 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   basicAttack: {fileID: 6181887400207115957}
-  basicAttackVert: {fileID: 0}
 --- !u!61 &4899897177315971979
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -318,7 +317,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.105358794, y: 0.26651117}
+  m_Size: {x: 0.2063588, y: 0.26651117}
   m_EdgeRadius: 0
 --- !u!114 &6181887400207115957
 MonoBehaviour:

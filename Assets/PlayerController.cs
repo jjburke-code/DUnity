@@ -168,14 +168,14 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("AttackLeft");
                 basicAttack.AttackLeft();
                 break;
-/*            case 2:
-                //animator.SetTrigger("AttackUp");
-                basicAttackVert.AttackUp();
+            case 2:
+                animator.SetTrigger("AttackUp");
+                basicAttack.AttackUp();
                 break;
             case 3:
-                //animator.SetTrigger("AttackDown");
-                basicAttackVert.AttackDown();
-                break;*/
+                animator.SetTrigger("AttackDown");
+                basicAttack.AttackDown();
+                break;
         }
 
 
