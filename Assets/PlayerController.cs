@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     Animator animator;
 
+    public BasicAttack basicAttack;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         if (canMove)
         {
             if (movementInput != Vector2.zero)
@@ -158,12 +161,18 @@ public class PlayerController : MonoBehaviour
         if (lastDirection == 0)
         {
             animator.SetTrigger("AttackRight");
+            basicAttack.AttackRight();
         }
         else if(lastDirection == 1)
         {
             animator.SetTrigger("AttackLeft");
-
+            basicAttack.AttackLeft();
         }
+        
     }
 
+    public void EndAttack()
+    {
+        basicAttack.AttackStop();
+    }
 }
