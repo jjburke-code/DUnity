@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 1f;
+    private float currSpeed;
+    public int flySpeedMulti = 2;
     private float collisionOffset = float.Epsilon;
     public ContactFilter2D movementFilter;
     bool moving = false;
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        currSpeed = moveSpeed;
     }
 
     private void FixedUpdate()
@@ -79,15 +82,22 @@ public class PlayerController : MonoBehaviour
     {
         if (direction != Vector2.zero)
         {
+            if (flying)
+            {
+                currSpeed = moveSpeed * flySpeedMulti;
+            }
+            else{
+                currSpeed = moveSpeed;
+            }
             int count = rb.Cast(
                 direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions 
                 movementFilter, // the settings that determine where a collision can occur on such as layers to collide with
                 castCollisions, // List of collisions to store the found collisions into after the cast is finished
-                moveSpeed * Time.fixedDeltaTime + collisionOffset); // the amount to cast equal to the movement plus an offset
+                currSpeed * Time.fixedDeltaTime + collisionOffset); // the amount to cast equal to the movement plus an offset
 
             if (count == 0)
             {
-                rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+                rb.MovePosition(rb.position + direction * currSpeed * Time.fixedDeltaTime);
                     if (direction.x > 0 || direction.x > 0 && (direction.y != 0))
                     {
                         if (flying)
