@@ -170,6 +170,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   basicAttack: {fileID: 6181887400207115957}
+  basicAttackVert: {fileID: 0}
 --- !u!61 &4899897177315971979
 BoxCollider2D:
   m_ObjectHideFlags: 0

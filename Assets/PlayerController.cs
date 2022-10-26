@@ -113,12 +113,12 @@ public class PlayerController : MonoBehaviour
                     if (direction.y > 0 && direction.x == 0)
                     {
                         animator.SetBool("IsMovingUp", true);
-
+                        lastDirection = 2;
                     }
                     if (direction.y < 0 && direction.x == 0)
                     {
                         animator.SetBool("IsMovingDown", true);
-
+                        lastDirection = 3;
                     }
                 }
                 
@@ -158,6 +158,27 @@ public class PlayerController : MonoBehaviour
 
     void OnPunch()
     {
+        switch (lastDirection)
+        {
+            case 0:
+                animator.SetTrigger("AttackRight");
+                basicAttack.AttackRight();
+                break;
+            case 1:
+                animator.SetTrigger("AttackLeft");
+                basicAttack.AttackLeft();
+                break;
+/*            case 2:
+                //animator.SetTrigger("AttackUp");
+                basicAttackVert.AttackUp();
+                break;
+            case 3:
+                //animator.SetTrigger("AttackDown");
+                basicAttackVert.AttackDown();
+                break;*/
+        }
+
+
         if (lastDirection == 0)
         {
             animator.SetTrigger("AttackRight");
