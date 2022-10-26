@@ -35,6 +35,20 @@ public class BasicAttack : MonoBehaviour
         transform.localPosition = new Vector3(rightAttackOffset.x * -1f, rightAttackOffset.y);
     }
 
+    public void AttackUp()
+    {
+        print("Attacked Up");
+        fistCollider.enabled = true;
+        transform.localPosition = new Vector3(0f, .1f);
+    }
+
+    public void AttackDown()
+    {
+        print("Attacked Down");
+        fistCollider.enabled = true;
+        transform.localPosition = new Vector3(0f, -.1f);
+    }
+
     public void AttackStop()
     {
         fistCollider.enabled = false;

@@ -1090,11 +1090,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!61 &991411673 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 8117536667021595094, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
-  m_PrefabInstance: {fileID: 4899897177315361455}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1821244245
 GameObject:
   m_ObjectHideFlags: 0
@@ -2220,10 +2215,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4899897177315971983, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
-      propertyPath: moveSpeed
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4899897177315972016, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -2291,14 +2282,6 @@ PrefabInstance:
     - target: {fileID: 4899897177735421873, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6181887400207115957, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
-      propertyPath: fistCollider
-      value: 
-      objectReference: {fileID: 991411673}
-    - target: {fileID: 8117536667021595094, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8475807370744909099, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
       propertyPath: m_Icon
