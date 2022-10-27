@@ -15,11 +15,11 @@ public class BasicAttack : MonoBehaviour
         rightAttackOffset = transform.position;
     }
 
-    // Update is called once per frame
+/*    // Update is called once per frame
     void Update()
     {
        
-    }
+    }*/
 
     public void AttackRight()
     {
