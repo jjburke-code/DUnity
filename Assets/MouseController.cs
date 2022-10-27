@@ -1,20 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Quaternion = UnityEngine.Quaternion;
-using Vector2 = UnityEngine.Vector2;
-using Vector3 = UnityEngine.Vector3;
 
-public class SpawnPrefab : MonoBehaviour
-
+public class MouseController : MonoBehaviour
 {
     Vector2 mousePosition;
     Vector3 worldPosition;
     Transform mouseSpot;
-    InputValue input;
 
     public GameObject enemy;
     // Start is called before the first frame update
@@ -27,23 +20,24 @@ public class SpawnPrefab : MonoBehaviour
     void Update()
     {
         mouseSpot.position = worldPosition;
-
     }
 
-    void OnFire()
+    void OnFire() 
     {
-
+        worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        worldPosition.z = 0;
         Vector3 currPosition = new Vector3();
         currPosition = worldPosition;
-        Instantiate(enemy, currPosition, Quaternion.identity);
-        print("made it");
+        SpawnEnemy(currPosition); // for testing
     }
 
     void OnMousePosition(InputValue position)
     {
         mousePosition = position.Get<Vector2>();
-        worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        worldPosition.z = 0;
-        print(worldPosition);
+    }
+
+    void SpawnEnemy(Vector3 input)
+    {
+        Instantiate(enemy, input, Quaternion.identity);
     }
 }
