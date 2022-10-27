@@ -23,28 +23,28 @@ public class BasicAttack : MonoBehaviour
 
     public void AttackRight()
     {
-        print("Attacked Right");
+        //print("Attacked Right");
         fistCollider.enabled = true;
         transform.localPosition = rightAttackOffset;
     }
 
     public void AttackLeft()
     {
-        print("Attacked Left");
+        //print("Attacked Left");
         fistCollider.enabled = true;
         transform.localPosition = new Vector3(rightAttackOffset.x * -1f, rightAttackOffset.y);
     }
 
     public void AttackUp()
     {
-        print("Attacked Up");
+       // print("Attacked Up");
         fistCollider.enabled = true;
         transform.localPosition = new Vector3(0f, .1f);
     }
 
     public void AttackDown()
     {
-        print("Attacked Down");
+        //print("Attacked Down");
         fistCollider.enabled = true;
         transform.localPosition = new Vector3(0f, -.1f);
     }
