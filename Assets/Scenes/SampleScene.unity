@@ -356,7 +356,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.2
+  orthographic size: 3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -35933,6 +35933,10 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 643359}
+    - target: {fileID: 4212196774808558071, guid: 572f29663da7a5947854bfe1e2a68ea0, type: 3}
+      propertyPath: m_LookAt
+      value: 
+      objectReference: {fileID: 643359}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 572f29663da7a5947854bfe1e2a68ea0, type: 3}
 --- !u!1001 &4899897177315361455
@@ -35942,14 +35946,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4899897177315971979, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4899897177315971979, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4899897177315972016, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -35997,46 +35993,6 @@ PrefabInstance:
     - target: {fileID: 4899897177315972018, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4899897177315972018, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4899897177735421872, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4899897177735421872, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4899897177735421872, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4899897177735421872, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4899897177735421873, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4899897177735421873, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8475807370744909099, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8475807370744909099, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8475807370744909099, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}

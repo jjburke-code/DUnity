@@ -19,9 +19,10 @@ public class Zoom : MonoBehaviour
     void Update()
     {
 
-        if (inputValue.y > 0 && vcam.m_Lens.OrthographicSize > 0.2f)
+        if (inputValue.y > 0 && vcam.m_Lens.OrthographicSize >= 2f)
         {
-            if (vcam.m_Lens.OrthographicSize > 0.7f && vcam.m_Lens.OrthographicSize < 0.9f)
+            vcam.m_Lens.OrthographicSize--;
+            /*if (vcam.m_Lens.OrthographicSize > 0.7f && vcam.m_Lens.OrthographicSize < 0.9f)
             {
                 vcam.m_Lens.OrthographicSize = 0.6f;
             }
@@ -37,11 +38,12 @@ public class Zoom : MonoBehaviour
             {
                 vcam.m_Lens.OrthographicSize -= 0.1f;
             }
-            
+            */
         }
-        else if (inputValue.y < 0 && vcam.m_Lens.OrthographicSize < 2f)
+        else if (inputValue.y < 0 && vcam.m_Lens.OrthographicSize <= 3f)
         {
-            if (vcam.m_Lens.OrthographicSize > 0.6f && vcam.m_Lens.OrthographicSize < 0.8f)
+            vcam.m_Lens.OrthographicSize++;
+            /*if (vcam.m_Lens.OrthographicSize > 0.6f && vcam.m_Lens.OrthographicSize < 0.8f)
             {
                 vcam.m_Lens.OrthographicSize = 0.9f;
             }
@@ -56,7 +58,7 @@ public class Zoom : MonoBehaviour
             else
             {
                 vcam.m_Lens.OrthographicSize += 0.1f;
-            }
+            }*/
         }
         
     }
