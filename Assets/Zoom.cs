@@ -22,43 +22,10 @@ public class Zoom : MonoBehaviour
         if (inputValue.y > 0 && vcam.m_Lens.OrthographicSize >= 2f)
         {
             vcam.m_Lens.OrthographicSize--;
-            /*if (vcam.m_Lens.OrthographicSize > 0.7f && vcam.m_Lens.OrthographicSize < 0.9f)
-            {
-                vcam.m_Lens.OrthographicSize = 0.6f;
-            }
-            else if (vcam.m_Lens.OrthographicSize > 0.9f && vcam.m_Lens.OrthographicSize <= 1.2f)
-            {
-                vcam.m_Lens.OrthographicSize = 0.8f;
-            }
-            else if (vcam.m_Lens.OrthographicSize > 1.2f)
-            {
-                vcam.m_Lens.OrthographicSize = 1.2f;
-            }
-            else
-            {
-                vcam.m_Lens.OrthographicSize -= 0.1f;
-            }
-            */
         }
         else if (inputValue.y < 0 && vcam.m_Lens.OrthographicSize <= 3f)
         {
             vcam.m_Lens.OrthographicSize++;
-            /*if (vcam.m_Lens.OrthographicSize > 0.6f && vcam.m_Lens.OrthographicSize < 0.8f)
-            {
-                vcam.m_Lens.OrthographicSize = 0.9f;
-            }
-            else if (vcam.m_Lens.OrthographicSize >= 0.9f && vcam.m_Lens.OrthographicSize < 1.2f)
-            {
-                vcam.m_Lens.OrthographicSize = 1.2f;
-            }
-            else if (vcam.m_Lens.OrthographicSize >= 1.2f)
-            {
-                vcam.m_Lens.OrthographicSize = 2f;
-            }
-            else
-            {
-                vcam.m_Lens.OrthographicSize += 0.1f;
-            }*/
         }
         
     }
