@@ -200,7 +200,7 @@ public class PlayerController : MonoBehaviour
         }
         else if(flying)
         {
-            gameObject.layer = 0;
+            gameObject.layer = 9;
             movementFilter.NoFilter();
             flying = false;
             animator.SetTrigger("Walking");

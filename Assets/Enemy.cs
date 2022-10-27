@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    SpriteRenderer spriteRenderer;
     public float Health
     {
         set
@@ -21,19 +22,36 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
+
     public float health = 1;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
+    public void TakeDamage(float damage)
+    {
+        StartCoroutine("FlashRed");
+        Health -= damage;
+    }
+
+    IEnumerator FlashRed()
+    {
+        //print("made it");
+        spriteRenderer.material.color = Color.red;
+        yield return new WaitForSeconds(.2f);
+        spriteRenderer.material.color = Color.white;
+        yield return null;
+    }
+
+/*    // Update is called once per frame
     void Update()
     {
         
-    }
+    }*/
 
     public void Defeated()
     {
