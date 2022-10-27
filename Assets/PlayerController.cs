@@ -31,12 +31,13 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         currSpeed = moveSpeed;
+
     }
 
     private void FixedUpdate()
     {
         animator.SetBool("IsFlying", flying);
-        print(moving);
+        //print(moving);
         if (canMove)
         {
             if (movementInput != Vector2.zero)
@@ -183,11 +184,12 @@ public class PlayerController : MonoBehaviour
     // probably should make this rebindable, but thats a problem for later
     void OnPressR()
     {
-        print("Pressed R");
+        //print("Pressed R");
         if (canFly && !flying)
         {
-            print("Can FLy");
-            LayerMask mask = LayerMask.GetMask("Default");
+            //print("Can FLy");
+            LayerMask mask = LayerMask.GetMask("Flight", "Bounds");
+            gameObject.layer = 6;
 
             movementFilter.SetLayerMask(mask);
             flying = true;
@@ -196,6 +198,7 @@ public class PlayerController : MonoBehaviour
         }
         else if(flying)
         {
+            gameObject.layer = 0;
             movementFilter.NoFilter();
             flying = false;
             animator.SetTrigger("Walking");
@@ -255,11 +258,11 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
-        //end of movement code
+    //end of movement code
 
-        //start of attack code
+    //start of attack code
 
-        void OnPunch()
+    void OnPunch()
     {
         switch (lastDirection)
         {

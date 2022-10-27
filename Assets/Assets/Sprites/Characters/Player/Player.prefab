@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
+  flySpeedMulti: 2
   movementFilter:
     useTriggers: 0
     useLayerMask: 0
