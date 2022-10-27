@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &637411508745958598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6412227849779896625}
+  - component: {fileID: 4483220052560347607}
+  m_Layer: 0
+  m_Name: PlayerStats
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6412227849779896625
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637411508745958598}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4899897177315972016}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4483220052560347607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637411508745958598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69822e0c50adde2428587b5d9d371c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4899897177315972018
 GameObject:
   m_ObjectHideFlags: 0
@@ -15,7 +59,6 @@ GameObject:
   - component: {fileID: 4899897177315971983}
   - component: {fileID: 4899897177315971979}
   - component: {fileID: 5300672153893991081}
-  - component: {fileID: 6691843397609246735}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -38,6 +81,7 @@ Transform:
   - {fileID: 4899897177735421872}
   - {fileID: 7036189282029471673}
   - {fileID: 2038730653413935012}
+  - {fileID: 6412227849779896625}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -157,7 +201,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  flySpeedMulti: 2
   movementFilter:
     useTriggers: 0
     useLayerMask: 0
@@ -173,6 +216,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   basicAttack: {fileID: 6181887400207115957}
+  playerStats: {fileID: 4483220052560347607}
 --- !u!61 &4899897177315971979
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -219,18 +263,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6691843397609246735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4899897177315972018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69822e0c50adde2428587b5d9d371c29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4899897177735421873
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,6 +394,7 @@ GameObject:
   - component: {fileID: 7036189282029471673}
   - component: {fileID: 8117536667021595094}
   - component: {fileID: 6181887400207115957}
+  - component: {fileID: 4368243827962796726}
   m_Layer: 0
   m_Name: PunchHitBox
   m_TagString: Untagged
@@ -424,3 +457,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   fistCollider: {fileID: 8117536667021595094}
+--- !u!50 &4368243827962796726
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8475807370744909099}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

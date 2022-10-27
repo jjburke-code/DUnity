@@ -9,6 +9,7 @@ public class PlayerStats : MonoBehaviour
 
     public struct Stats
     {
+        public float bp; // not used atm
         public float strength;
         public float durability;
         public float speed;
@@ -28,28 +29,68 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         player = new Stats();
-        int[] startingStats = Enumerable.Repeat(1, 11).ToArray();
-        SetStats(startingStats);
+        MakeCharacter();
     }
 
-    // Update is called once per frame
-/*    void Update()
+    void MakeCharacter()
     {
-        
-    }*/
+        SetStats("bp", 100f);
+        SetStats("strength", 1f);
+        SetStats("durability", 1f);
+        SetStats("speed", 1f);
+        SetStats("force", 1f);
+        SetStats("resistance", 1f);
+        SetStats("accuracy", 1f);
+        SetStats("reflex", 1f);
 
-    void SetStats(int[] statsArray)
-    {
-        player.strength = statsArray[0];
-        player.durability = statsArray[1];
-        player.speed = statsArray[2];
-        player.force = statsArray[3];
-        player.resistance = statsArray[4];
-        player.accuracy = statsArray[5];
-        player.reflex = statsArray[6];
-        player.energy = statsArray[7];
-        player.regen = statsArray[8];
-        player.recovery = statsArray[9];
-        player.anger = statsArray[10];
+        SetStats("energy", 1f);
+        SetStats("regen", 1f);
+        SetStats("recovery", 1f);
+        SetStats("anger", 1f);
+        print("character made");
     }
+
+    public void SetStats(string stat,float value)
+    {
+        switch (stat)
+        {
+            case "bp":
+                player.bp = value;
+                break;
+            case "strength":
+                player.strength = value;
+                break;
+            case "durability":
+                player.durability = value;
+                break;
+            case "speed":
+                player.speed = value;
+                break;
+            case "force":
+                player.force = value;
+                break;
+            case "resistance":
+                player.resistance = value;
+                break;
+            case "accuracy":
+                player.accuracy = value;
+                break;
+            case "reflex":
+                player.reflex = value;
+                break;
+            case "energy":
+                player.energy = value;
+                break;
+            case "regen":
+                player.regen = value;
+                break;
+            case "recovery":
+                player.recovery = value;
+                break;
+            case "anger":
+                player.anger = value;
+                break;
+        }
+    }
+
 }

@@ -6,9 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 1f;
+    public float moveSpeed = 2f;
     private float currSpeed;
-    public int flySpeedMulti = 2;
     private float collisionOffset = float.Epsilon;
     public ContactFilter2D movementFilter;
     bool moving = false;
@@ -24,6 +23,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
 
     public BasicAttack basicAttack;
+    public PlayerStats playerStats;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         currSpeed = moveSpeed;
-
+        basicAttack.damage = 10f * playerStats.player.strength; // dunno actual eq
     }
 
     private void FixedUpdate()
@@ -85,10 +85,13 @@ public class PlayerController : MonoBehaviour
         {
             if (flying)
             {
-                currSpeed = moveSpeed * flySpeedMulti;
+                currSpeed = (moveSpeed * 2f) * playerStats.player.speed; // maybe also multiply by fly skill needs work on Equation
+              //  print(currSpeed);
             }
             else{
-                currSpeed = moveSpeed;
+                currSpeed = moveSpeed + playerStats.player.speed;
+               // print(currSpeed);
+
             }
             int count = rb.Cast(
                 direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions 

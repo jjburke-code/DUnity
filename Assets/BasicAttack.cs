@@ -15,12 +15,6 @@ public class BasicAttack : MonoBehaviour
         rightAttackOffset = transform.position;
     }
 
-/*    // Update is called once per frame
-    void Update()
-    {
-       
-    }*/
-
     public void AttackRight()
     {
         //print("Attacked Right");
@@ -37,7 +31,7 @@ public class BasicAttack : MonoBehaviour
 
     public void AttackUp()
     {
-       // print("Attacked Up");
+        // print("Attacked Up");
         fistCollider.enabled = true;
         transform.localPosition = new Vector3(0f, .1f);
     }
@@ -56,14 +50,15 @@ public class BasicAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Enemy")
+        if (collision.tag == "Enemy")
         {
             //deal damage
             Enemy enemy = collision.GetComponent<Enemy>();
 
-            if(enemy != null)
+            if (enemy != null)
             {
                 enemy.Health -= damage;
+                print(damage + " dmg");
             }
         }
     }
