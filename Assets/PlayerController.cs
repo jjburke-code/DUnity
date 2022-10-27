@@ -31,7 +31,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         currSpeed = moveSpeed;
-        basicAttack.damage = 10f * playerStats.player.strength; // dunno actual eq
     }
 
     private void FixedUpdate()
@@ -267,6 +266,7 @@ public class PlayerController : MonoBehaviour
 
     void OnPunch()
     {
+        basicAttack.damage = 10f * playerStats.player.strength; // dunno actual eq
         switch (lastDirection)
         {
             case 0:

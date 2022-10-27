@@ -35763,6 +35763,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 637411508745958598, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4899897177315972016, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -35812,6 +35816,14 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4899897177315972018, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4899897177735421873, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5258261351508329709, guid: df56fc2fdf075934da127f6df94ba7ae, type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
