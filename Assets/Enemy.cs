@@ -1,9 +1,10 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : NetworkBehaviour
 {
     SpriteRenderer spriteRenderer;
     public float Health

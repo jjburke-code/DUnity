@@ -1,16 +1,16 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     public float moveSpeed = 2f;
     private float currSpeed;
     private float collisionOffset = float.Epsilon;
     public ContactFilter2D movementFilter;
-    bool moving = false;
     bool canFly = true; // will eventually be able to set via skill
     bool flying = false;
 
@@ -21,20 +21,26 @@ public class PlayerController : MonoBehaviour
     int lastDirection;
 
     Animator animator;
+    NetworkAnimator networkAnimator;
+    
+
 
     public BasicAttack basicAttack;
     public PlayerStats playerStats;
 
-    // Start is called before the first frame update
+    // Start is called before the first frame update 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        networkAnimator = GetComponent<NetworkAnimator>();
         currSpeed = moveSpeed;
+        
     }
 
     private void FixedUpdate()
     {
+        if (!isLocalPlayer) return;
         animator.SetBool("IsFlying", flying);
         //print(moving);
         if (canMove)
@@ -186,6 +192,7 @@ public class PlayerController : MonoBehaviour
     // probably should make this rebindable, but thats a problem for later
     void OnPressR()
     {
+        if (!isLocalPlayer) return;
         //print("Pressed R");
         if (canFly && !flying)
         {
@@ -196,6 +203,7 @@ public class PlayerController : MonoBehaviour
             movementFilter.SetLayerMask(mask);
             flying = true;
             animator.SetTrigger("Flying");
+            networkAnimator.SetTrigger("Flying");
             transform.position = transform.position + new Vector3(0f, .1f);
         }
         else if(flying)
@@ -204,6 +212,7 @@ public class PlayerController : MonoBehaviour
             movementFilter.NoFilter();
             flying = false;
             animator.SetTrigger("Walking");
+            networkAnimator.SetTrigger("Walking");
             transform.position = transform.position + new Vector3(0f, -.1f);
         }
     }
@@ -266,23 +275,28 @@ public class PlayerController : MonoBehaviour
 
     void OnPunch()
     {
+        if (!isLocalPlayer) return;
         basicAttack.damage = 10f * playerStats.player.strength; // dunno actual eq
         switch (lastDirection)
         {
             case 0:
                 animator.SetTrigger("AttackRight");
+                networkAnimator.SetTrigger("AttackRight");
                 basicAttack.AttackRight();
                 break;
             case 1:
                 animator.SetTrigger("AttackLeft");
+                networkAnimator.SetTrigger("AttackLeft");
                 basicAttack.AttackLeft();
                 break;
             case 2:
                 animator.SetTrigger("AttackUp");
+                networkAnimator.SetTrigger("AttackUp");
                 basicAttack.AttackUp();
                 break;
             case 3:
                 animator.SetTrigger("AttackDown");
+                networkAnimator.SetTrigger("AttackDown");
                 basicAttack.AttackDown();
                 break;
         }
