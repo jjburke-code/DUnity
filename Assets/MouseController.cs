@@ -1,3 +1,4 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class MouseController : MonoBehaviour
     void Start()
     {
         mouseSpot = GetComponent<Transform>();
+        //enemy = new GameObject();
     }
 
     // Update is called once per frame
@@ -39,5 +41,6 @@ public class MouseController : MonoBehaviour
     void SpawnEnemy(Vector3 input)
     {
         Instantiate(enemy, input, Quaternion.identity);
+        NetworkServer.Spawn(enemy);
     }
 }
