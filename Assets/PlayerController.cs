@@ -1,7 +1,5 @@
 using Mirror;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,17 +14,19 @@ public class PlayerController : NetworkBehaviour
 
     Vector2 movementInput;
     Rigidbody2D rb;
-    List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
+    List<RaycastHit2D> castCollisions = new List<RaycastHit2D>(); 
     bool canMove = true;
     int lastDirection;
 
     Animator animator;
     NetworkAnimator networkAnimator;
     
+    public MouseController mouseController;
 
-
-    public BasicAttack basicAttack;
+    //public BasicAttack basicAttack;
     public PlayerStats playerStats;
+
+    [SerializeField] private float damage;
 
     // Start is called before the first frame update 
     void Start()
@@ -35,12 +35,17 @@ public class PlayerController : NetworkBehaviour
         animator = GetComponent<Animator>();
         networkAnimator = GetComponent<NetworkAnimator>();
         currSpeed = moveSpeed;
-        
+        damage = 10f * playerStats.player.strength;
+
+        //rightAttackOffset = fistHitbox.transform.position;
+
     }
 
+    [Client]
     private void FixedUpdate()
     {
-        if (!isLocalPlayer) return;
+        if (!hasAuthority) return;
+        damage = 10f * playerStats.player.strength;
         animator.SetBool("IsFlying", flying);
         //print(moving);
         if (canMove)
@@ -91,11 +96,12 @@ public class PlayerController : NetworkBehaviour
             if (flying)
             {
                 currSpeed = (moveSpeed * 2f) * playerStats.player.speed; // maybe also multiply by fly skill needs work on Equation
-              //  print(currSpeed);
+                                                                         //  print(currSpeed);
             }
-            else{
+            else
+            {
                 currSpeed = moveSpeed + playerStats.player.speed;
-               // print(currSpeed);
+                // print(currSpeed);
 
             }
             int count = rb.Cast(
@@ -107,60 +113,60 @@ public class PlayerController : NetworkBehaviour
             if (count == 0)
             {
                 rb.MovePosition(rb.position + direction * currSpeed * Time.fixedDeltaTime);
-                    if (direction.x > 0 || direction.x > 0 && (direction.y != 0))
+                if (direction.x > 0 || direction.x > 0 && (direction.y != 0))
+                {
+                    if (flying)
                     {
-                        if (flying)
-                        {
-                            animator.SetBool("IsFlyingRight",true);
-                        }
-                        else
-                        {
-                            animator.SetBool("IsMovingRight", true);
-                        }
-                        
-                        lastDirection = 0;
+                        animator.SetBool("IsFlyingRight", true);
                     }
-                    if (direction.x < 0 || direction.x < 0 && (direction.y != 0))
+                    else
                     {
-                        
-                        if (flying)
-                        {
-                            animator.SetBool("IsFlyingLeft",true);
-                        }
-                        else
-                        {
-                            animator.SetBool("IsMovingLeft", true);
-                        }
-                        
-                        lastDirection = 1;
+                        animator.SetBool("IsMovingRight", true);
+                    }
 
-                    }
-                    if (direction.y > 0 && direction.x == 0)
+                    lastDirection = 0;
+                }
+                if (direction.x < 0 || direction.x < 0 && (direction.y != 0))
+                {
+
+                    if (flying)
                     {
-                        if (flying)
-                        {
-                            animator.SetBool("IsFlyingUp",true);
-                        }
-                        else
-                        {
-                            animator.SetBool("IsMovingUp", true);
-                        }
-                        
-                        lastDirection = 2;
+                        animator.SetBool("IsFlyingLeft", true);
                     }
-                    if (direction.y < 0 && direction.x == 0)
+                    else
                     {
-                        if (flying)
-                        {
-                            animator.SetBool("IsFlyingDown",true);
-                        }
-                        else
-                        {
-                            animator.SetBool("IsMovingDown", true);
-                        }
-                        
-                        lastDirection = 3;
+                        animator.SetBool("IsMovingLeft", true);
                     }
+
+                    lastDirection = 1;
+
+                }
+                if (direction.y > 0 && direction.x == 0)
+                {
+                    if (flying)
+                    {
+                        animator.SetBool("IsFlyingUp", true);
+                    }
+                    else
+                    {
+                        animator.SetBool("IsMovingUp", true);
+                    }
+
+                    lastDirection = 2;
+                }
+                if (direction.y < 0 && direction.x == 0)
+                {
+                    if (flying)
+                    {
+                        animator.SetBool("IsFlyingDown", true);
+                    }
+                    else
+                    {
+                        animator.SetBool("IsMovingDown", true);
+                    }
+
+                    lastDirection = 3;
+                }
                 return true;
             }
             else
@@ -174,8 +180,10 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
+    [Client]
     void OnMove(InputValue movementValue)
     {
+        if (!hasAuthority) return;
         movementInput = movementValue.Get<Vector2>();
     }
 
@@ -189,8 +197,22 @@ public class PlayerController : NetworkBehaviour
         canMove = true;
     }
 
+    [Client]
     // probably should make this rebindable, but thats a problem for later
     void OnPressR()
+    {
+        if (!hasAuthority) return;
+        CmdOnPressR();
+    }
+
+    [Command]
+    private void CmdOnPressR()
+    {
+        RpcOnPressR();
+    }
+
+    [ClientRpc]
+    private void RpcOnPressR()
     {
         if (!isLocalPlayer) return;
         //print("Pressed R");
@@ -202,16 +224,16 @@ public class PlayerController : NetworkBehaviour
 
             movementFilter.SetLayerMask(mask);
             flying = true;
-            animator.SetTrigger("Flying");
+            //animator.SetTrigger("Flying");
             networkAnimator.SetTrigger("Flying");
             transform.position = transform.position + new Vector3(0f, .1f);
         }
-        else if(flying)
+        else if (flying)
         {
             gameObject.layer = 9;
             movementFilter.NoFilter();
             flying = false;
-            animator.SetTrigger("Walking");
+            //animator.SetTrigger("Walking");
             networkAnimator.SetTrigger("Walking");
             transform.position = transform.position + new Vector3(0f, -.1f);
         }
@@ -273,40 +295,188 @@ public class PlayerController : NetworkBehaviour
 
     //start of attack code
 
+    [Client]
     void OnPunch()
     {
+        if (!hasAuthority) return;
+        CmdOnPunch();
+    }
+
+    [Command]
+    private void CmdOnPunch()
+    {
+        RpcOnPunch();
+    }
+
+    
+
+    [ClientRpc]
+    private void RpcOnPunch()
+    {
         if (!isLocalPlayer) return;
-        basicAttack.damage = 10f * playerStats.player.strength; // dunno actual eq
+        ; // dunno actual eq
         switch (lastDirection)
         {
             case 0:
-                animator.SetTrigger("AttackRight");
+                //animator.SetTrigger("AttackRight");
                 networkAnimator.SetTrigger("AttackRight");
-                basicAttack.AttackRight();
+                AttackRight();
                 break;
             case 1:
-                animator.SetTrigger("AttackLeft");
+                //animator.SetTrigger("AttackLeft");
                 networkAnimator.SetTrigger("AttackLeft");
-                basicAttack.AttackLeft();
+                AttackLeft();
                 break;
             case 2:
-                animator.SetTrigger("AttackUp");
-                networkAnimator.SetTrigger("AttackUp");
-                basicAttack.AttackUp();
+                //animator.SetTrigger("AttackUp");
+                networkAnimator.SetTrigger("AttackUp"); 
+                AttackUp();
                 break;
             case 3:
-                animator.SetTrigger("AttackDown");
+                //animator.SetTrigger("AttackDown");
                 networkAnimator.SetTrigger("AttackDown");
-                basicAttack.AttackDown();
+                AttackDown();
                 break;
         }
-        
     }
 
     public void EndAttack()
     {
-        basicAttack.AttackStop();
+        AttackStop();
+    }
+
+    
+
+    public BoxCollider2D fistCollider;
+
+    [Client]
+    public void AttackRight()
+    {
+        //print("Attacked Right");
+        /*fistCollider.enabled = true;
+        fistCollider.transform.localPosition = new Vector3(0.089f, 0f);*/
+        if(!hasAuthority) return;
+        CmdAttack("right");
+    }
+
+
+    [Client]
+
+    public void AttackLeft()
+    {
+        //print("Attacked Left");
+        /*fistCollider.enabled = true;
+        fistCollider.transform.localPosition = new Vector3(0.089f * -1f, 0f);*/
+        if (!hasAuthority) return;
+        CmdAttack("left");
+    }
+
+    [Client]
+    public void AttackUp()
+    {
+        // print("Attacked Up");
+        /*fistCollider.enabled = true;
+        fistCollider.transform.localPosition = new Vector3(0f, .1f);*/
+        if (!hasAuthority) return;
+        CmdAttack("left");
+    }
+
+    [Client]
+    public void AttackDown()
+    {
+        //print("Attacked Down");
+        /*fistCollider.enabled = true;
+        fistCollider.transform.localPosition = new Vector3(0f, -.1f);*/
+        if (!hasAuthority) return;
+        CmdAttack("left");
+    }
+
+    [Client]
+    public void AttackStop()
+    {
+        fistCollider.enabled = false;
+    }
+
+    [Command]
+    private void CmdAttack(string direction)
+    {
+        RpcAttack(direction);
+    }
+
+    [ClientRpc]
+    private void RpcAttack(string direction)
+    {
+        switch (direction)
+        {
+            case "right":
+                fistCollider.enabled = true;
+                fistCollider.transform.localPosition = new Vector3(0.089f, 0f);
+                break;
+            case "left":
+                fistCollider.enabled = true;
+                fistCollider.transform.localPosition = new Vector3(0.089f * -1f, 0f);
+                break;
+            case "up":
+                fistCollider.enabled = true;
+                fistCollider.transform.localPosition = new Vector3(0f, .1f);
+                break;
+            case "down":
+                fistCollider.enabled = true;
+                fistCollider.transform.localPosition = new Vector3(0f, -.1f);
+                break;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            //deal damage
+            Enemy enemy = collision.GetComponent<Enemy>();
+
+            if (enemy != null)
+            {
+                enemy.TakeDamage(10f);
+                print(damage + " dmg");
+            }
+        }
+    }
+
+    private void CmdHitboxHit()
+    {
+
+    }
+
+    private void RpcHitboxHit()
+    {
+
     }
 
     // end of attack code
+
+    // Per button Code
+
+    public GameObject cell;
+
+    [Client]
+    void OnPressC()
+    {
+        if (!isLocalPlayer) return;
+        CmdOnPressC();
+    }
+
+    [Command]
+    private void CmdOnPressC()
+    {
+        RpcOnPressC();
+    }
+
+    [ClientRpc]
+    private void RpcOnPressC()
+    {
+        GameObject cellSpawn = Instantiate(cell, mouseController.currentMousePosition, Quaternion.identity);
+        NetworkServer.Spawn(cellSpawn);
+    }
+
+    // end of dev code
 }

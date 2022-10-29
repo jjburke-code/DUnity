@@ -8,25 +8,25 @@ public class BasicAttack : MonoBehaviour
     public float damage = 1f;
 
     public BoxCollider2D fistCollider;
-    Vector2 rightAttackOffset;
+    //Vector2 rightAttackOffset;
     // Start is called before the first frame update
     void Start()
     {
-        rightAttackOffset = transform.position;
+        //rightAttackOffset = transform.position;
     }
 
     public void AttackRight()
     {
         //print("Attacked Right");
         fistCollider.enabled = true;
-        transform.localPosition = rightAttackOffset;
+        transform.localPosition = new Vector3(0.089f, 0f);
     }
 
     public void AttackLeft()
     {
         //print("Attacked Left");
         fistCollider.enabled = true;
-        transform.localPosition = new Vector3(rightAttackOffset.x * -1f, rightAttackOffset.y);
+        transform.localPosition = new Vector3(0.089f * -1f, 0f);
     }
 
     public void AttackUp()
