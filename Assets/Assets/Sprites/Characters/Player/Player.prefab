@@ -62,6 +62,7 @@ GameObject:
   - component: {fileID: 2466581020248676866}
   - component: {fileID: 7286054901946435687}
   - component: {fileID: 4220902939769170144}
+  - component: {fileID: 270103595042329024}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -219,8 +220,11 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  basicAttack: {fileID: 6181887400207115957}
+  mouseController: {fileID: 5030406935788116620}
   playerStats: {fileID: 4483220052560347607}
+  damage: 10
+  fistCollider: {fileID: 8117536667021595094}
+  cell: {fileID: 5334154901386689524, guid: 77de6562fc857d546b4ecf34bf644f2a, type: 3}
 --- !u!61 &4899897177315971979
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -337,6 +341,28 @@ MonoBehaviour:
   syncInterval: 0.1
   clientAuthority: 1
   animator: {fileID: 5300672153893991081}
+--- !u!114 &270103595042329024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4899897177315972018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2cbc52526ea384ba280d13cd1a57b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  target: {fileID: 4899897177315971981}
+  clientAuthority: 1
+  syncVelocity: 1
+  clearVelocity: 0
+  velocitySensitivity: 0.1
+  syncAngularVelocity: 1
+  clearAngularVelocity: 0
+  angularVelocitySensitivity: 0.1
 --- !u!1 &5258261351508329709
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891e72211b9747e478ce67155e0b840a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 5334154901386689524, guid: 77de6562fc857d546b4ecf34bf644f2a, type: 3}
+  currentMousePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &8643925602375368948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,7 +449,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7036189282029471673}
   - component: {fileID: 8117536667021595094}
-  - component: {fileID: 6181887400207115957}
   - component: {fileID: 4368243827962796726}
   m_Layer: 0
   m_Name: PunchHitBox
@@ -473,20 +498,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2063588, y: 0.26651117}
   m_EdgeRadius: 0
---- !u!114 &6181887400207115957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8475807370744909099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6286e331281aabe4aab97849b7ce5624, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
-  fistCollider: {fileID: 8117536667021595094}
 --- !u!50 &4368243827962796726
 Rigidbody2D:
   serializedVersion: 4

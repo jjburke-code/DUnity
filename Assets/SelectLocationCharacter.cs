@@ -21,4 +21,6 @@ public class SelectLocationCharacter : NetworkBehaviour
             virtualCamera.Follow = NetworkClient.localPlayer.gameObject.transform;
         }
     }
+
+
 }

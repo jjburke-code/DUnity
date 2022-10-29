@@ -7,6 +7,11 @@ using UnityEngine;
 public class Enemy : NetworkBehaviour
 {
     SpriteRenderer spriteRenderer;
+
+    [SyncVar]
+    Color color;
+
+    
     public float Health
     {
         set
@@ -24,7 +29,7 @@ public class Enemy : NetworkBehaviour
     }
 
 
-
+    [SyncVar]
     public float health = 1;
 
     // Start is called before the first frame update
@@ -33,7 +38,23 @@ public class Enemy : NetworkBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    [Client]
     public void TakeDamage(float damage)
+    {
+        if (!hasAuthority) return;
+        CmdTakeDamage(damage);
+    }
+
+    [Command]
+    private void CmdTakeDamage(float damage)
+    {
+        StartCoroutine("FlashRed");
+        Health -= damage;
+        RpcTakeDamage(damage);
+    }
+
+    [ClientRpc]
+    private void RpcTakeDamage(float damage)
     {
         StartCoroutine("FlashRed");
         Health -= damage;
@@ -42,9 +63,11 @@ public class Enemy : NetworkBehaviour
     IEnumerator FlashRed()
     {
         //print("made it");
-        spriteRenderer.material.color = Color.red;
+        color = Color.red;
+        spriteRenderer.material.color = color;
         yield return new WaitForSeconds(.2f);
-        spriteRenderer.material.color = Color.white;
+        color = Color.white;
+        spriteRenderer.material.color = color;
         yield return null;
     }
 
@@ -56,6 +79,7 @@ public class Enemy : NetworkBehaviour
 
     public void Defeated()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        NetworkServer.Destroy(gameObject);
     }
 }
